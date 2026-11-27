@@ -72,6 +72,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 1,
                 EventId = 1,
                 StudentName = "Jordan Patel",
+                Email = "jordan@gmail.com",
                 RegisteredOn = new DateTime(2025, 8, 8, 18, 0, 0)
             }, 
             //Event 3 has 2 registrations, matching its capacity of 2
@@ -80,6 +81,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 2,
                 EventId = 3,
                 StudentName = "Yaya Vibes",
+                Email = "yaya@gmail.com",
                 RegisteredOn = new DateTime(2025, 7, 9, 12, 0, 0)
             }, 
             new Registration
@@ -87,6 +89,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 3,
                 EventId = 3,
                 StudentName = "Holy Ten",
+                Email = "ten@gmail.com",
                 RegisteredOn = new DateTime(2025, 9, 12, 12, 0, 0)
             },
             new Registration
@@ -94,6 +97,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 4,
                 EventId = 1,
                 StudentName = "Maloti Hulu",
+                Email = "hulu@gmail.com",
                 RegisteredOn = new DateTime(2025, 9, 8, 12, 0, 0)
             },
             new Registration
@@ -101,6 +105,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 5,
                 EventId = 2,
                 StudentName = "Nyasha Mutasa",
+                Email = "nyasha@gmail.com",
                 RegisteredOn = new DateTime(2026, 11, 10, 11, 20, 0)
             },
             new Registration
@@ -108,6 +113,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 6,
                 EventId = 2,
                 StudentName = "Kudakwashe Chikwanda",
+                Email = "kudae@gmail.com",
                 RegisteredOn = new DateTime(2026, 11, 12, 13, 5, 0)
             },
             new Registration
@@ -115,6 +121,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 7,
                 EventId = 2,
                 StudentName = "Chiedza Dube",
+                Email = "dube@gmail.com",
                 RegisteredOn = new DateTime(2026, 11, 15, 17, 30, 0)
             },
             new Registration
@@ -122,6 +129,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 8,
                 EventId = 4,
                 StudentName = "Tafadzwa Gumbo",
+                Email = "gumbo@gmail.com",
                 RegisteredOn = new DateTime(2026, 11, 20, 9, 40, 0)
             },
             new Registration
@@ -129,6 +137,7 @@ public class AppDbContext : DbContext
                 RegistrationId = 9,
                 EventId = 4,
                 StudentName = "Farai Ncube",
+                Email = "ncube@gmail.com",
                 RegisteredOn = new DateTime(2026, 11, 22, 15, 10, 0)
             }
             
