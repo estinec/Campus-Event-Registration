@@ -30,6 +30,7 @@ public class AppDbContext : DbContext
             {
                 EventId = 1,
                 Title = "Orientation",
+                Location = "Learning Commons",
                 EventDate = new DateTime(2025, 9, 15, 9, 0, 0, DateTimeKind.Utc),
                 Capacity = 10
             },
@@ -37,6 +38,7 @@ public class AppDbContext : DbContext
             {
                 EventId = 2,
                 Title = "Peer Mentor Event",
+                Location = "B124",
                 EventDate = new DateTime(2026, 12, 15, 18, 0, 0),
                 Capacity = 20
             },
@@ -44,6 +46,7 @@ public class AppDbContext : DbContext
             {
                 EventId = 3,
                 Title = "Puppy Yoga",
+                Location = "Gym",
                 EventDate = new DateTime(2027, 1, 18, 12, 0, 0),
                 Capacity = 2
             },
@@ -51,6 +54,7 @@ public class AppDbContext : DbContext
             {
                 EventId = 4,
                 Title = "Graduation Photos",
+                Location = "Conference Centre",
                 EventDate = new DateTime(2027, 4, 1, 13, 0, 0),
                 Capacity = 50
             }
