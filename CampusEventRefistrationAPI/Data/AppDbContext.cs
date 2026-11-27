@@ -3,6 +3,7 @@ using CampusEventRefistrationAPI.Models;
 
 namespace CampusEventRefistrationAPI.Data;
 
+// EF Core database context for campus events and student registrations.
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -13,11 +14,13 @@ public class AppDbContext : DbContext
     public DbSet<Registration> Registrations => Set<Registration>();
 
 
+        //setting relationships and seeding data
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
         base.OnModelCreating(modelBuilder);
 
+        // One event can have many registrations; deleting an event deletes its registrations.
         modelBuilder.Entity<Event>()
             .HasMany(e => e.Registrations)
             .WithOne(r => r.Event)
@@ -25,6 +28,7 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
 
+        
         modelBuilder.Entity<Event>().HasData(
             new Event
             {
@@ -42,6 +46,7 @@ public class AppDbContext : DbContext
                 EventDate = new DateTime(2026, 12, 15, 18, 0, 0),
                 Capacity = 20
             },
+            // event with capacity 2 
             new Event
             {
                 EventId = 3,
@@ -69,6 +74,7 @@ public class AppDbContext : DbContext
                 StudentName = "Jordan Patel",
                 RegisteredOn = new DateTime(2025, 8, 8, 18, 0, 0)
             }, 
+            //Event 3 has 2 registrations, matching its capacity of 2
             new Registration
             {
                 RegistrationId = 2,

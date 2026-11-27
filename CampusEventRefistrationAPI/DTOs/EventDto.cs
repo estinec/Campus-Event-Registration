@@ -1,5 +1,6 @@
 namespace CampusEventRefistrationAPI.DTOs;
 
+// Event data returned by the API
 public class EventDto
 {
     public int EventId { get; set; }

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CampusEventRefistrationAPI.DTOs;
 
+// Input data sent by a client to register a student for an event with validations
 public class CreateRegistrationDto
 {
     [Required(ErrorMessage = "Student name is required.")]

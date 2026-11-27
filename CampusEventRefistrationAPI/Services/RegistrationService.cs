@@ -5,30 +5,35 @@ using CampusEventRefistrationAPI.Models;
 
 namespace CampusEventRefistrationAPI.Services;
 
+// Thrown when a requested event is not found (mapped to HTTP 404).
 public class NotFoundException : Exception
 {
     public NotFoundException(string message) : base(message) { }
 }
 
+// Thrown when registration violates a client rule like past event dates (mapped to HTTP 400).
 public class BadRequestRuleException : Exception
 {
     public BadRequestRuleException(string message) : base(message) { }
 }
 
+// Thrown when registration conflicts with existing state like duplicates or capacity (mapped to HTTP 409).
 public class ConflictRuleException : Exception
 {
     public ConflictRuleException(string message) : base(message) { }
 }
 
+// Service enforcing registration rules and managing registration records in EF Core.
 public class RegistrationService : IRegistrationService
 {
-    private readonly AppDbContext _db;
+    private readonly AppDbContext _db; // Database context for events and registrations
 
     public RegistrationService(AppDbContext db)
     {
         _db = db;
     }
 
+    // Returns registrations for an event ordered by registration time, or null if the event does not exist.
     public async Task<List<RegistrationDto>?> GetRegistrationsForEventAsync(int eventId)
     {
         var eventExists = await _db.Events.AnyAsync(e => e.EventId == eventId);
@@ -51,6 +56,7 @@ public class RegistrationService : IRegistrationService
             .ToListAsync();
     }
 
+    // Validates event existence, date, duplicate email, and capacity before saving a registration.
     public async Task<RegistrationDto> RegisterForEventAsync(int eventId, CreateRegistrationDto dto)
     {
         var eventEntity = await _db.Events
@@ -70,7 +76,7 @@ public class RegistrationService : IRegistrationService
         }
 
         // 3. No duplicates (case-insensitive) -> 409 Conflict: "This email is already registered for this event."
-        var normalizedEmail = dto.Email.Trim();
+        var normalizedEmail = dto.Email.Trim(); // Trim whitespace before case-insensitive comparison and storage
         var alreadyRegistered = eventEntity.Registrations
             .Any(r => string.Equals(r.Email.Trim(), normalizedEmail, StringComparison.OrdinalIgnoreCase));
 
@@ -90,7 +96,7 @@ public class RegistrationService : IRegistrationService
             EventId = eventId,
             StudentName = dto.StudentName.Trim(),
             Email = normalizedEmail,
-            RegisteredOn = DateTime.UtcNow
+            RegisteredOn = DateTime.UtcNow // Record creation time in UTC
         };
 
         _db.Registrations.Add(registration);
@@ -106,6 +112,7 @@ public class RegistrationService : IRegistrationService
         };
     }
 
+    // Deletes a registration by ID; returns false if no matching registration exists.
     public async Task<bool> CancelRegistrationAsync(int registrationId)
     {
         var registration = await _db.Registrations

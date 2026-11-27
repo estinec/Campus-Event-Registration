@@ -8,8 +8,8 @@ namespace CampusEventRefistrationAPI.Controllers;
 [Route("api/events")]
 public class EventsController : ControllerBase
 {
-    private readonly IEventService _eventService;
-    private readonly IRegistrationService _registrationService;
+    private readonly IEventService _eventService; // Event business logic
+    private readonly IRegistrationService _registrationService; // Registration business logic
 
     public EventsController(IEventService eventService, IRegistrationService registrationService)
     {
@@ -17,6 +17,7 @@ public class EventsController : ControllerBase
         _registrationService = registrationService;
     }
 
+    // GET /api/events - returns all events sorted by date
     [HttpGet]
     public async Task<ActionResult<List<EventDto>>> GetEvents()
     {
@@ -24,6 +25,7 @@ public class EventsController : ControllerBase
         return Ok(events);
     }
 
+    // GET /api/events/{id} - returns a single event or 404
     [HttpGet("{id:int}")]
     public async Task<ActionResult<EventDto>> GetEvent(int id)
     {
@@ -31,6 +33,7 @@ public class EventsController : ControllerBase
         return eventDto is null ? NotFound() : Ok(eventDto);
     }
 
+    // POST /api/events - creates an event and returns 201 Created
     [HttpPost]
     public async Task<ActionResult<EventDto>> CreateEvent([FromBody] CreateEventDto dto)
     {
@@ -38,6 +41,7 @@ public class EventsController : ControllerBase
         return CreatedAtAction(nameof(GetEvent), new { id = created.EventId }, created);
     }
 
+    // GET /api/events/{id}/registrations - lists registrations for an event or 404
     [HttpGet("{id:int}/registrations")]
     public async Task<ActionResult<List<RegistrationDto>>> GetRegistrationsForEvent(int id)
     {
@@ -45,6 +49,7 @@ public class EventsController : ControllerBase
         return registrations is null ? NotFound() : Ok(registrations);
     }
 
+    //registers a student and maps rule errors to HTTP status codes
     [HttpPost("{id:int}/registrations")]
     public async Task<ActionResult<RegistrationDto>> RegisterForEvent(int id, [FromBody] CreateRegistrationDto dto)
     {
@@ -55,15 +60,15 @@ public class EventsController : ControllerBase
         }
         catch (NotFoundException ex)
         {
-            return NotFound(ex.Message);
+            return NotFound(ex.Message); //404
         }
         catch (BadRequestRuleException ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(ex.Message); //400
         }
         catch (ConflictRuleException ex)
         {
-            return Conflict(ex.Message);
+            return Conflict(ex.Message); //409
         }
     }
 }

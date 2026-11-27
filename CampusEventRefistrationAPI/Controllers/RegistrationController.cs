@@ -7,13 +7,14 @@ namespace CampusEventRefistrationAPI.Controllers;
 [Route("api/registrations")]
 public class RegistrationsController : ControllerBase
 {
-    private readonly IRegistrationService _registrationService;
+    private readonly IRegistrationService _registrationService; // Registration business logic
 
     public RegistrationsController(IRegistrationService registrationService)
     {
         _registrationService = registrationService;
     }
 
+    //cancels a registration or returns 404
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> CancelRegistration(int id)
     {

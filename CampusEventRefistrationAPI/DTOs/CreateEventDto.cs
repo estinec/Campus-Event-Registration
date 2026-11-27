@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using CampusEventRefistrationAPI.Validation;
 
 namespace CampusEventRefistrationAPI.DTOs;
-
+// Input data sent by a client to create a new event, validated before reaching the service
 public class CreateEventDto
 {
     [Required(ErrorMessage = "Event title is required.")]
